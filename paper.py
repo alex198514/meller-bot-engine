@@ -2437,31 +2437,61 @@ def push_size(rec):
     return rec["notional"] * k, rec["margin"] * k
 
 
+def usd_at(rec, price):
+    """Dollars at `price` for the push risk SETUP_PUSH_RISK_USD (before fees): + at a target, - at the stop."""
+    risk = abs(rec["entry"] - rec["stop"])
+    sgn = 1 if rec["side"] == "long" else -1
+    return SETUP_PUSH_RISK_USD * sgn * (price - rec["entry"]) / risk if risk else 0.0
+
+
+def usd_pm(x):
+    return f"{'+' if x >= 0 else '−'}${abs(x):,.0f}"
+
+
+def local_hm(ms):
+    """HH:MM in Warsaw time (the user's clock)."""
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.fromtimestamp(ms / 1000, tz=ZoneInfo("Europe/Warsaw")).strftime("%H:%M")
+    except Exception:
+        return datetime.fromtimestamp(ms / 1000, tz=timezone.utc).strftime("%H:%M UTC")
+
+
+SIDE_RU = {"long": "ЛОНГ", "short": "ШОРТ"}
+
+
 def setup_text(rec):
-    """(title, text) of the Russian training push: "🧪 Тренировка · <type> · ...", first line TRAINING_LINE,
-    entry, stop, targets, size for SETUP_PUSH_RISK_USD."""
+    """(title, text) of the Russian training push, one fixed order (user, 21.11.2026):
+    1 entry, 2 stop (-$10), 3 take profits ($), 4 cancel / exit; then size, setup type, the observation line."""
     kind = setup_type(rec)
-    title = f"СИГНАЛ {rec['tf'].upper()} · {rec['side'].upper()} {rec['name']}"
     wave = kind == "wave"
-    title = f"{TRAINING_TITLE} · {WAVE_TITLE if wave else FRIEND_TITLE if kind == 'friend' else 'Пробой'} · {title}"
+    name_t = WAVE_TITLE if wave else FRIEND_TITLE if kind == "friend" else "Пробой"
+    title = f"{TRAINING_TITLE} · {SIDE_RU[rec['side']]} · {rec['name']}"
+    lo = rec["side"] == "long"
     notional, margin = push_size(rec)
-    size = f"Размер {notional:,.0f} USDT · маржа 5x {margin:,.0f} USDT (риск ${SETUP_PUSH_RISK_USD:g})\n"
-    if kind == "friend":
-        return title, (f"{TRAINING_LINE}\nЛимитная заявка на линии {px(rec['entry'])} (цена идёт за линией, 12 свечей 15m) · "
-                       f"стоп {px(rec['stop'])}\nTP1 {px(rec['tp'][0])} (половина, затем стоп в безубыток) · TP2 {px(rec['tp'][1])}\n"
-                       f"{size}Максимум 48 часов в сделке.")
-    warn = ""
+    lines = []
     if rec.get("against"):
         title += f" {SETUP_AGAINST}"
-        warn = f"{SETUP_AGAINST}: {'лонг на медвежьем' if rec['side'] == 'long' else 'шорт на бычьем'} рынке\n"
-    tps = (f"Цель {px(rec['tp'][0])} (R:R 1:{rec['rr']:.1f}) · откат волны 2 {100 * rec['ret']:.0f}%\n" if wave else
-           f"TP1 {px(rec['tp'][0])} · TP2 {px(rec['tp'][1])}\n")
-    lo = rec["side"] == "long"
-    text = (f"{TRAINING_LINE}\n{warn}{('Вход стоп-ордером на пробое ' + ('вершины' if lo else 'дна') + ' волны 1: ') if wave else 'Вход '}"
-            f"{px(rec['entry'])} · стоп {px(rec['stop'])}{(' (' + ('дно' if lo else 'вершина') + ' волны 2)') if wave else ''}"
-            f"\n{tps}"
-            f"{size}Максимум 24 часа в сделке.")
-    return title, text
+        lines.append(f"{SETUP_AGAINST}: {'лонг на медвежьем' if lo else 'шорт на бычьем'} рынке")
+    if kind == "friend":
+        entry = f"лимит на продажу {px(rec['entry'])}"
+    elif wave:
+        entry = f"стоп-ордер {px(rec['entry'])} (пробой {'вершины' if lo else 'дна'} волны 1)"
+    else:
+        entry = px(rec["entry"])
+    lines.append(f"1. Вход: {entry}")
+    lines.append(f"2. Стоп: {px(rec['stop'])} ({usd_pm(usd_at(rec, rec['stop']))})")
+    if wave:
+        lines.append(f"3. Тейк: {px(rec['tp'][0])} ({usd_pm(usd_at(rec, rec['tp'][0]))})")
+    else:
+        lines.append(f"3. Тейк 1: {px(rec['tp'][0])} ({usd_pm(usd_at(rec, rec['tp'][0]))}) → закрыть половину, стоп в безубыток")
+        lines.append(f"   Тейк 2: {px(rec['tp'][1])} ({usd_pm(usd_at(rec, rec['tp'][1]))})")
+    lines.append(f"4. Выход: максимум {48 if kind == 'friend' else 24} ч в сделке")
+    lines.append("")
+    lines.append(f"Позиция: {notional:,.0f} USDT · маржа 5x {margin:,.0f} USDT")
+    lines.append(f"Сетап: {name_t} · {rec['tf'].upper()}")
+    lines.append("Наблюдение, не рекомендация")
+    return title, "\n".join(lines)
 
 
 def setup_card(rec, bars):
@@ -2836,14 +2866,19 @@ def friend_push(rec, kind):
         risk = rec["stop"] - rec["entry"]
         size = SETUP_PUSH_RISK_USD / risk * rec["entry"]
         expiry = rec["close_ms"] + 12 * step
-        return (f"{FRIEND_PUSH} · SHORT {coin}",
-                f"Поставь лимитную заявку на продажу: {px(rec['entry'])} (до {hm(k1_end)} UTC; линия сдвигается на "
-                f"{'+' if slope >= 0 else '−'}{px(abs(slope))} за 15 мин, переставляй заявку)\n"
-                f"Стоп: {px(rec['stop'])}\n"
-                f"Цель 1: {px(rec['tp'][0])} → закрыть половину, стоп в безубыток\n"
-                f"Цель 2: {px(rec['tp'][1])}\n"
-                f"Риск ${SETUP_PUSH_RISK_USD:g} · позиция {size:,.0f} USDT\n"
-                f"Заявка действует до {hm(expiry)} UTC (12 свечей 15m)\n"
+        tp1 = SETUP_PUSH_RISK_USD * (rec["entry"] - rec["tp"][0]) / risk
+        tp2 = SETUP_PUSH_RISK_USD * (rec["entry"] - rec["tp"][1]) / risk
+        return (f"{TRAINING_TITLE} · ШОРТ · {coin}",
+                f"1. Вход: лимит на продажу {px(rec['entry'])}\n"
+                f"   (эта цена до {local_hm(k1_end)}, дальше линия сдвигается на {'+' if slope >= 0 else '−'}{px(abs(slope))} "
+                f"каждые 15 мин: переставляй заявку)\n"
+                f"2. Стоп: {px(rec['stop'])} (−${SETUP_PUSH_RISK_USD:g})\n"
+                f"3. Тейк 1: {px(rec['tp'][0])} ({usd_pm(tp1)}) → закрыть половину, стоп в безубыток\n"
+                f"   Тейк 2: {px(rec['tp'][1])} ({usd_pm(tp2)})\n"
+                f"4. Отмена: если до {local_hm(expiry)} цена не дошла до входа\n"
+                f"\n"
+                f"Позиция: {size:,.0f} USDT · максимум 48 ч в сделке\n"
+                f"Сетап: {FRIEND_TITLE} (пробой + ретест) · 15M\n"
                 f"Наблюдение, не рекомендация")
     short = {"filled": (f"Заявка {coin} исполнилась", f"Заявка {coin} исполнилась по {px(rec['entry'])}, стоп и цели как в сигнале: стоп {px(rec['stop'])}, "
                                                     f"цель 1 {px(rec['tp'][0])}, цель 2 {px(rec['tp'][1])} (цели от цены исполнения)."),
