@@ -1,0 +1,18 @@
+# Служебные настройки Claude Code
+.claude/
+
+# Системный мусор macOS
+.DS_Store
+
+# Скачанные данные (создаются fetch_history.py)
+data/
+
+# Secrets for the Telegram notifier (paper.py)
+.env
+
+# Lock file and launchd log of paper.py (paper/ itself is tracked)
+paper/.lock
+paper/state.json.tmp
+paper/run.log
+site/data.json
+site/news.json

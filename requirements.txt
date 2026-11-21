@@ -1,0 +1,1 @@
+pillow>=10.0      # paper.py: the PNG card on BUY pushes (without it the text push is sent)

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script>
+    /* Safari "desktop website" mode on a phone lays the page out ~980px wide, so everything is tiny.
+       Zoom the page so its layout width equals the phone's width again (before the first paint), and set
+       width classes on <html>: CSS width media queries keep seeing 980px under zoom. */
+    /* Theme before the first paint: light by default, dark if chosen before. The iPhone status bar and theme-color
+       follow it (an installed home-screen app reads the status bar style when it starts). */
+    (function () {
+      var th = "light";
+      try { if (localStorage.getItem("meller_theme") === "dark") th = "dark"; } catch (e) { /* private mode */ }
+      document.documentElement.setAttribute("data-theme", th);
+      document.write('<meta name="theme-color" content="' + (th === "dark" ? "#0a0f1e" : "#ffffff") + '">' +
+        '<meta name="apple-mobile-web-app-status-bar-style" content="' + (th === "dark" ? "black" : "default") + '">' +
+        '<meta name="color-scheme" content="' + th + '">');
+    })();
+    (function () {
+      var d = document.documentElement, last = 0;
+      function apply() {
+        var land = window.matchMedia && matchMedia("(orientation: landscape)").matches;
+        var phone = land ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
+        var iw = window.innerWidth;                      // unaffected by the zoom below: no feedback loop
+        var z = phone > 0 && iw > phone * 1.2 ? iw / phone : 1;
+        d.style.zoom = z === 1 ? "" : String(z);
+        d.style.setProperty("--z", String(z));
+        var w = iw / z;                                  // the effective layout width
+        d.classList.toggle("lt400", w <= 400);
+        d.classList.toggle("le360", w <= 360);
+        d.classList.toggle("lt360", w < 360);
+        d.classList.toggle("ge640", w >= 640);
+        window.__mb = { zoom: z, width: w };
+        if (last && z !== last) window.dispatchEvent(new Event("mb-zoom"));   // charts re-measure
+        last = z;
+      }
+      apply();
+      window.addEventListener("resize", apply);
+      window.addEventListener("orientationchange", function () { setTimeout(apply, 150); });
+    })();
+  </script>
+  <meta name="description" content="Meller Bot: daily 20-day breakout signals on 75 crypto coins, paper trading and a market overview.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Meller Bot">
+  <link rel="manifest" href="manifest.json?v=36">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <title>Meller Bot</title>
+  <link rel="stylesheet" href="style.css?v=36">
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <img src="icon-192.png" alt="" class="logo">
+      <div class="brand-text">
+        <div class="title">Meller Bot</div>
+        <div class="status" id="status">…</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <span class="pill" id="market"></span>
+      <button class="lang theme-btn" id="theme" type="button" aria-label="Theme">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.55 1.55M17.15 17.15l1.55 1.55M5.3 18.7l1.55-1.55M17.15 6.85l1.55-1.55"/></svg>
+      </button>
+      <button class="lang" id="lang" type="button" aria-label="Language">EN</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tab" id="tab-signals">
+      <div class="list-head">
+        <h2 id="setups-title"></h2>
+        <button class="info" id="setups-info" type="button" aria-expanded="false" aria-controls="setups-explain">i</button>
+      </div>
+      <p class="explain" id="setups-explain" hidden></p>
+      <div id="sg-stats"></div>
+      <div class="fchips" id="sg-filters" role="group"></div>
+      <div id="sg-list"></div>
+    </section>
+
+    <section class="tab" id="tab-market" hidden>
+      <input id="search" type="search" autocomplete="off" spellcheck="false">
+      <div class="list-head">
+        <h2 id="near-title"></h2>
+        <button class="info" id="near-info" type="button" aria-expanded="false" aria-controls="near-explain">i</button>
+      </div>
+      <p class="explain" id="near-explain" hidden></p>
+      <ul class="list" id="coins"></ul>
+      <button class="more" id="more" type="button" hidden></button>
+    </section>
+
+    <section class="tab coin-page" id="tab-signal" hidden>
+      <div class="backbar"><button class="back-btn" id="coin-back" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span id="coin-back-t"></span></button></div>
+      <div class="card hero" id="sig-hero"></div>
+      <div class="card sbanner" id="setup-banner" hidden></div>
+      <div class="card noplan" id="noplan" hidden></div>
+      <div class="card ladder-card" id="ladder"></div>
+      <div class="tps" id="tps"></div>
+      <button class="primary" id="entered-btn" type="button"></button>
+      <p class="sentence" id="sig-status"></p>
+      <div class="tfs" id="tfs"></div>
+      <div class="lvl-legend" id="lvl-legend"></div>
+      <div class="card chart-card"><div class="chart" id="chart"></div></div>
+      <p class="hint lvl-proj" id="lvl-proj"></p>
+      <button class="more wbtn" id="coin-waves" type="button"></button>
+      <h2 class="h2" id="sig-news-title" hidden></h2>
+      <div id="sig-news"></div>
+    </section>
+
+    <section class="tab" id="tab-waves" hidden>
+      <div class="list-head"><h2 id="w-title"></h2></div>
+      <div class="wsearch"><input id="w-search" type="search" autocomplete="off" spellcheck="false" enterkeyhint="go"><div class="wsugg" id="w-sugg" hidden></div></div>
+      <div class="seg six" id="w-tf" role="tablist">
+        <button type="button" data-tf="5m">5m</button>
+        <button type="button" data-tf="15m">15m</button>
+        <button type="button" data-tf="30m">30m</button>
+        <button type="button" data-tf="1h">1H</button>
+        <button type="button" data-tf="4h" class="on">4H</button>
+        <button type="button" data-tf="1d">1D</button>
+      </div>
+      <div class="whead" id="w-head"></div>
+      <div class="card chart-card"><div class="chart" id="w-chart"></div></div>
+      <div class="lvl-legend" id="w-legend"></div>
+      <p class="wtext" id="w-text"></p>
+      <p class="wnote" id="w-note"></p>
+    </section>
+
+    <section class="tab" id="tab-positions" hidden>
+      <div id="journal"></div>
+      <h2 class="h2 slow-title" id="slow-title"></h2>
+      <p class="slow-note" id="slow-note" hidden></p>
+      <h3 class="h3" id="bot-pos-title"></h3>
+      <div id="positions"></div>
+      <h3 class="h3" id="bot-res-title"></h3>
+      <div id="bot-results"></div>
+    </section>
+
+
+    <section class="tab" id="tab-overview" hidden>
+      <div class="card fng" id="fng" role="button" tabindex="0" aria-expanded="false" hidden></div>
+      <a class="attr" id="fng-attr" href="https://alternative.me/crypto/fear-and-greed-index/" target="_blank" rel="noopener" hidden>Data: alternative.me</a>
+      <h2 class="h2" id="heat-title" data-t="heat_title"></h2>
+      <div class="seg three period-seg" id="heat-period" role="tablist">
+        <button type="button" data-p="1h">1H</button>
+        <button type="button" data-p="24h" class="on">24H</button>
+        <button type="button" data-p="7d">7D</button>
+      </div>
+      <p class="bhint" id="heat-hint"></p>
+      <div class="heat" id="heat" role="list"></div>
+      <button class="bub-btn" id="bubbles-btn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="9" r="5"/><circle cx="17" cy="7" r="3"/><circle cx="15.5" cy="16.5" r="4"/></svg>
+        <span data-t="bubbles_btn"></span>
+      </button>
+    </section>
+
+    <footer class="foot">built with Claude Code · @meller_ai · not financial advice</footer>
+  </main>
+
+  <div class="sheet" id="sheet" hidden>
+    <form class="sheet-card" id="entry-form" autocomplete="off">
+      <div class="sheet-head"><h3 id="sheet-title"></h3><button type="button" class="x" id="sheet-close" aria-label="Close">✕</button></div>
+      <label><span data-t="f_entry"></span><input name="entry" inputmode="decimal" required></label>
+      <label><span data-t="f_stop"></span><input name="stop" inputmode="decimal" required></label>
+      <div class="two">
+        <label><span>TP1</span><input name="tp1" inputmode="decimal"></label>
+        <label><span>TP2</span><input name="tp2" inputmode="decimal"></label>
+      </div>
+      <label><span data-t="f_size"></span><input name="size" inputmode="decimal" required></label>
+      <p class="hint" id="sheet-hint"></p>
+      <button class="primary" type="submit" data-t="f_save"></button>
+    </form>
+  </div>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+
+  <div class="bubbles-overlay" id="bubble-view" role="dialog" aria-modal="true" aria-labelledby="bubble-title" hidden>
+    <div class="bub-head">
+      <h2 id="bubble-title" data-t="bubbles_btn"></h2>
+      <button class="bub-close" id="bubble-close" type="button" data-label="close">×</button>
+    </div>
+    <div class="seg three period-seg" id="period-switch" role="tablist">
+      <button type="button" data-p="1h">1H</button>
+      <button type="button" data-p="24h" class="on">24H</button>
+      <button type="button" data-p="7d">7D</button>
+    </div>
+    <p class="bhint" id="bubble-hint"></p>
+    <div class="bubble-box" id="bubble-box"><canvas id="bubbles" aria-label=""></canvas></div>
+  </div>
+
+  <nav class="tabbar" id="tabbar">
+    <button data-tab="signals" class="active" type="button">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z"/><path class="ln" d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z"/></svg></span>
+      <span data-t="tab_signals"></span>
+    </button>
+    <button data-tab="market" type="button">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 19V14.5l5-5 4 4 7-7.5V19z"/><path class="ln" d="M3 14.5l5-5 4 4 7-7.5"/></svg></span>
+      <span data-t="tab_market"></span>
+    </button>
+    <button data-tab="waves" type="button">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 19v-4l4-6 4 5 4-8 6 9v4z"/><path class="ln" d="M3 15l4-6 4 5 4-8 6 9"/></svg></span>
+      <span data-t="tab_waves"></span>
+    </button>
+    <button data-tab="positions" type="button">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3.5 8h17v11.5h-17z"/><path class="ln" d="M9 8V5.5h6V8M3.5 13h17"/></svg></span>
+      <span data-t="tab_positions"></span>
+    </button>
+    <button data-tab="overview" type="button">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 17.5a9 9 0 0 1 18 0z"/><path class="ln" d="M12 17.5l4.2-5.3M3 17.5h18"/></svg></span>
+      <span data-t="tab_overview"></span>
+    </button>
+  </nav>
+
+  <script data-goatcounter="https://mellerbot.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  <script src="app.js?v=36"></script>
+</body>
+</html>

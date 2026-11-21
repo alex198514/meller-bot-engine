@@ -1,0 +1,381 @@
+{
+ "period": [
+  "2025-11-16",
+  "2026-11-16"
+ ],
+ "symbols": 126,
+ "missing": [],
+ "rules": {
+  "tfs": [
+   "1h",
+   "4h"
+  ],
+  "exit_hours": 24,
+  "fee_rt": 0.0006,
+  "slippage_side": 0.0005,
+  "tracking": "5m candles, stop first when both are touched",
+  "market": "BTC vs SMA200, band \u00b13.0%"
+ },
+ "pass_rule": "avg R > +0.10, every quarter total R > 0, total R > 0 without the 3 best coins",
+ "quarters": [
+  "2025-11-16",
+  "2026-02-16",
+  "2026-05-16",
+  "2026-08-16",
+  "2026-11-16"
+ ],
+ "variants": {
+  "A": {
+   "name": "all signals",
+   "n": 40267,
+   "win": 41.1,
+   "avg_r": -0.094,
+   "total_r": -3771.7,
+   "quarters": {
+    "Q1 25-11..26-02": {
+     "n": 10111,
+     "win": 41.7,
+     "avg_r": -0.066,
+     "total_r": -664.3
+    },
+    "Q2 26-02..26-05": {
+     "n": 10133,
+     "win": 41.1,
+     "avg_r": -0.102,
+     "total_r": -1029.8
+    },
+    "Q3 26-05..26-08": {
+     "n": 9702,
+     "win": 38.2,
+     "avg_r": -0.21,
+     "total_r": -2036.0
+    },
+    "Q4 26-08..26-11": {
+     "n": 10321,
+     "win": 43.4,
+     "avg_r": -0.004,
+     "total_r": -41.5
+    }
+   },
+   "top3": [
+    "JTOUSDT",
+    "SUIUSDT",
+    "SAGAUSDT"
+   ],
+   "without_top3": {
+    "n": 39310,
+    "win": 41.0,
+    "avg_r": -0.098,
+    "total_r": -3850.5
+   },
+   "parts": {
+    "long": {
+     "n": 19314,
+     "win": 39.9,
+     "avg_r": -0.098,
+     "total_r": -1884.7
+    },
+    "short": {
+     "n": 20953,
+     "win": 42.3,
+     "avg_r": -0.09,
+     "total_r": -1887.0
+    },
+    "breakout": {
+     "n": 32459,
+     "win": 40.5,
+     "avg_r": -0.102,
+     "total_r": -3302.8
+    },
+    "wave": {
+     "n": 7808,
+     "win": 43.6,
+     "avg_r": -0.06,
+     "total_r": -468.8
+    },
+    "1h": {
+     "n": 32136,
+     "win": 40.9,
+     "avg_r": -0.102,
+     "total_r": -3263.6
+    },
+    "4h": {
+     "n": 8131,
+     "win": 41.9,
+     "avg_r": -0.062,
+     "total_r": -508.1
+    }
+   },
+   "checks": {
+    "avg_r_gt_0.10": false,
+    "every_quarter_plus": false,
+    "plus_without_top3": false
+   },
+   "pass": false
+  },
+  "B": {
+   "name": "with the market only (bear: shorts, bull: longs, side: none)",
+   "n": 21179,
+   "win": 41.9,
+   "avg_r": -0.09,
+   "total_r": -1903.5,
+   "quarters": {
+    "Q1 25-11..26-02": {
+     "n": 6026,
+     "win": 42.0,
+     "avg_r": -0.074,
+     "total_r": -446.8
+    },
+    "Q2 26-02..26-05": {
+     "n": 4184,
+     "win": 42.8,
+     "avg_r": -0.098,
+     "total_r": -408.2
+    },
+    "Q3 26-05..26-08": {
+     "n": 5474,
+     "win": 39.8,
+     "avg_r": -0.202,
+     "total_r": -1104.7
+    },
+    "Q4 26-08..26-11": {
+     "n": 5495,
+     "win": 43.3,
+     "avg_r": 0.01,
+     "total_r": 56.2
+    }
+   },
+   "top3": [
+    "ZECUSDT",
+    "TRUMPUSDT",
+    "ENSUSDT"
+   ],
+   "without_top3": {
+    "n": 20701,
+    "win": 41.7,
+    "avg_r": -0.095,
+    "total_r": -1970.4
+   },
+   "parts": {
+    "long": {
+     "n": 4869,
+     "win": 41.6,
+     "avg_r": -0.041,
+     "total_r": -197.6
+    },
+    "short": {
+     "n": 16310,
+     "win": 42.0,
+     "avg_r": -0.105,
+     "total_r": -1706.0
+    },
+    "breakout": {
+     "n": 17208,
+     "win": 41.0,
+     "avg_r": -0.101,
+     "total_r": -1740.4
+    },
+    "wave": {
+     "n": 3971,
+     "win": 46.0,
+     "avg_r": -0.041,
+     "total_r": -163.1
+    },
+    "1h": {
+     "n": 16759,
+     "win": 41.0,
+     "avg_r": -0.112,
+     "total_r": -1872.6
+    },
+    "4h": {
+     "n": 4420,
+     "win": 45.2,
+     "avg_r": -0.007,
+     "total_r": -30.9
+    }
+   },
+   "checks": {
+    "avg_r_gt_0.10": false,
+    "every_quarter_plus": false,
+    "plus_without_top3": false
+   },
+   "pass": false
+  },
+  "C": {
+   "name": "B, 4h only",
+   "n": 4420,
+   "win": 45.2,
+   "avg_r": -0.007,
+   "total_r": -30.9,
+   "quarters": {
+    "Q1 25-11..26-02": {
+     "n": 1190,
+     "win": 45.6,
+     "avg_r": 0.014,
+     "total_r": 16.8
+    },
+    "Q2 26-02..26-05": {
+     "n": 853,
+     "win": 39.4,
+     "avg_r": -0.206,
+     "total_r": -175.9
+    },
+    "Q3 26-05..26-08": {
+     "n": 1160,
+     "win": 44.7,
+     "avg_r": -0.078,
+     "total_r": -90.9
+    },
+    "Q4 26-08..26-11": {
+     "n": 1217,
+     "win": 49.5,
+     "avg_r": 0.18,
+     "total_r": 219.1
+    }
+   },
+   "top3": [
+    "APTUSDT",
+    "TRUMPUSDT",
+    "EGLDUSDT"
+   ],
+   "without_top3": {
+    "n": 4308,
+    "win": 44.9,
+    "avg_r": -0.015,
+    "total_r": -64.5
+   },
+   "parts": {
+    "long": {
+     "n": 1030,
+     "win": 47.2,
+     "avg_r": 0.14,
+     "total_r": 144.6
+    },
+    "short": {
+     "n": 3390,
+     "win": 44.6,
+     "avg_r": -0.052,
+     "total_r": -175.6
+    },
+    "breakout": {
+     "n": 3716,
+     "win": 45.5,
+     "avg_r": 0.002,
+     "total_r": 8.5
+    },
+    "wave": {
+     "n": 704,
+     "win": 43.8,
+     "avg_r": -0.056,
+     "total_r": -39.5
+    },
+    "1h": {
+     "n": 0,
+     "win": null,
+     "avg_r": null,
+     "total_r": 0.0
+    },
+    "4h": {
+     "n": 4420,
+     "win": 45.2,
+     "avg_r": -0.007,
+     "total_r": -30.9
+    }
+   },
+   "checks": {
+    "avg_r_gt_0.10": false,
+    "every_quarter_plus": false,
+    "plus_without_top3": false
+   },
+   "pass": false
+  },
+  "D": {
+   "name": "B, breakouts only",
+   "n": 17208,
+   "win": 41.0,
+   "avg_r": -0.101,
+   "total_r": -1740.4,
+   "quarters": {
+    "Q1 25-11..26-02": {
+     "n": 4959,
+     "win": 40.7,
+     "avg_r": -0.093,
+     "total_r": -463.6
+    },
+    "Q2 26-02..26-05": {
+     "n": 3230,
+     "win": 42.4,
+     "avg_r": -0.104,
+     "total_r": -335.3
+    },
+    "Q3 26-05..26-08": {
+     "n": 4400,
+     "win": 37.6,
+     "avg_r": -0.242,
+     "total_r": -1066.1
+    },
+    "Q4 26-08..26-11": {
+     "n": 4619,
+     "win": 43.4,
+     "avg_r": 0.027,
+     "total_r": 124.5
+    }
+   },
+   "top3": [
+    "ZECUSDT",
+    "EGLDUSDT",
+    "ENSUSDT"
+   ],
+   "without_top3": {
+    "n": 16790,
+    "win": 40.7,
+    "avg_r": -0.108,
+    "total_r": -1807.9
+   },
+   "parts": {
+    "long": {
+     "n": 4106,
+     "win": 41.8,
+     "avg_r": -0.025,
+     "total_r": -102.2
+    },
+    "short": {
+     "n": 13102,
+     "win": 40.7,
+     "avg_r": -0.125,
+     "total_r": -1638.2
+    },
+    "breakout": {
+     "n": 17208,
+     "win": 41.0,
+     "avg_r": -0.101,
+     "total_r": -1740.4
+    },
+    "wave": {
+     "n": 0,
+     "win": null,
+     "avg_r": null,
+     "total_r": 0.0
+    },
+    "1h": {
+     "n": 13492,
+     "win": 39.7,
+     "avg_r": -0.13,
+     "total_r": -1749.0
+    },
+    "4h": {
+     "n": 3716,
+     "win": 45.5,
+     "avg_r": 0.002,
+     "total_r": 8.5
+    }
+   },
+   "checks": {
+    "avg_r_gt_0.10": false,
+    "every_quarter_plus": false,
+    "plus_without_top3": false
+   },
+   "pass": false
+  }
+ }
+}

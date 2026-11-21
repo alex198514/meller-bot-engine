@@ -1,0 +1,170 @@
+{
+ "period": {
+  "start": "2025-11-16",
+  "end": "2026-11-16",
+  "quarters": [
+   "2025-11-16",
+   "2026-02-16",
+   "2026-05-16",
+   "2026-08-16",
+   "2026-11-16"
+  ]
+ },
+ "universe": {
+  "source": "SCANNER_SYMBOLS",
+  "top_n": 30,
+  "rank_by": "total quote volume of the 1d candles over the period"
+ },
+ "warmup_days": {
+  "1h": 90,
+  "15m": 3,
+  "4h": 30
+ },
+ "fractal_n": 3,
+ "zigzag": {
+  "tf": "1h",
+  "k_atr": 3.0,
+  "atr_n": 14
+ },
+ "fib": {
+  "lo": 0.5,
+  "hi": 0.618,
+  "tol": 0.05
+ },
+ "rsi": {
+  "n": 14,
+  "min_diff": 3.0
+ },
+ "volume": {
+  "mult": 1.5,
+  "avg_n": 20
+ },
+ "liquidity": {
+  "lookback": 10
+ },
+ "cci": {
+  "n": 20,
+  "level": 150,
+  "around": 3
+ },
+ "min_confirmations": 2,
+ "ctx4h_sma": 50,
+ "trade": {
+  "stop_atr_n": 14,
+  "stop_atr_mult": 0.1,
+  "tp1_r": 1.5,
+  "tp1_part": 0.5,
+  "tp2_r": 3.0,
+  "max_hold_h": 48,
+  "fee_rt": 0.0006,
+  "slippage_side": 0.0005,
+  "max_open_per_coin": 1
+ },
+ "pass": {
+  "min_trades": 100,
+  "min_avg_r": 0.1,
+  "every_quarter_plus": true,
+  "plus_without_top": 3
+ },
+ "variants": {
+  "v1": {
+   "stop": "extreme",
+   "filter_4h": null
+  },
+  "v2": {
+   "stop": "last_swing",
+   "max_risk_atr1h": 1.5,
+   "filter_4h": "structure",
+   "fractal_4h_n": 3
+  },
+  "v3": {
+   "stop": "retest",
+   "entry": "retest",
+   "filter_4h": null,
+   "retest_bars": 12,
+   "retest_atr": 0.1,
+   "max_risk_atr1h": 2.0
+  },
+  "v4": {
+   "entry": "limit",
+   "limit_bars": 12,
+   "stop": "last_swing",
+   "max_risk_atr_struct": 2.0,
+   "filter_4h": null,
+   "fees": {
+    "maker": 0.0001,
+    "taker": 0.0003,
+    "slippage_taker": 0.0005
+   },
+   "tf_struct": "1h",
+   "tf_entry": "15m",
+   "tf_ctx": "4h",
+   "max_hold_h": 48
+  },
+  "v4h": {
+   "entry": "limit",
+   "limit_bars": 12,
+   "stop": "last_swing",
+   "max_risk_atr_struct": 2.0,
+   "filter_4h": null,
+   "fees": {
+    "maker": 0.0001,
+    "taker": 0.0003,
+    "slippage_taker": 0.0005
+   },
+   "tf_struct": "4h",
+   "tf_entry": "1h",
+   "tf_ctx": "1d",
+   "max_hold_h": 96,
+   "warmup_days": {
+    "struct": 180,
+    "entry": 10,
+    "ctx": 120
+   },
+   "data_after_days": 5
+  }
+ },
+ "live_friend": {
+  "variant": "v4",
+  "sides": [
+   "short"
+  ],
+  "symbols": [
+   "BTCUSDT",
+   "ETHUSDT",
+   "SOLUSDT",
+   "XRPUSDT",
+   "ZECUSDT",
+   "BNBUSDT",
+   "DOGEUSDT",
+   "SUIUSDT",
+   "TRXUSDT",
+   "PEPEUSDT",
+   "ADAUSDT",
+   "TAOUSDT",
+   "WLDUSDT",
+   "LINKUSDT",
+   "UNIUSDT",
+   "ENAUSDT",
+   "AVAXUSDT",
+   "ASTERUSDT",
+   "LTCUSDT",
+   "PUMPUSDT",
+   "BCHUSDT",
+   "XLMUSDT",
+   "AAVEUSDT",
+   "TRUMPUSDT",
+   "DASHUSDT",
+   "FETUSDT",
+   "HBARUSDT",
+   "ONDOUSDT",
+   "FILUSDT",
+   "ARBUSDT"
+  ],
+  "candles": {
+   "1h": 1000,
+   "15m": 1000,
+   "4h": 200
+  }
+ }
+}

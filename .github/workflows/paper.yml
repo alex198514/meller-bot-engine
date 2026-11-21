@@ -1,0 +1,168 @@
+# Daily forward paper trading (paper.py) on GitHub Actions, so it runs even when the Mac is off.
+# paper.py downloads its candles and funding itself (strategy B: 75 symbols; intraday scanner: 126). The run commits paper/state.json and paper/journal.csv back to main; on the Mac: git pull.
+name: paper
+
+on:
+  schedule:
+    - cron: "7 5,6,7,8 * * *"    # GitHub can start a cron hours late, so try four times; a day is processed once
+  workflow_dispatch:             # watch: POST .../dispatches {"ref":"main","inputs":{"mode":"watch"}}; friend: {"mode":"friend"}
+    inputs:
+      mode:
+        description: "daily = the paper run; watch = intraday alerts only (never changes state.json); friend = the friend's setup every 15 minutes (friend.json only)"
+        type: choice
+        options: [daily, watch, friend]
+        default: daily
+      demo:
+        description: "Only push one sample DEMO BUY BTCUSDT signal card and one sample dashboard card (changes nothing)"
+        type: boolean
+        default: false
+      weekly_demo:
+        description: "Only push one sample weekly report card (changes nothing)"
+        type: boolean
+        default: false
+      demo_en:
+        description: "Only push one English EXAMPLE BUY BTCUSDT signal card (changes nothing)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  # friend runs every 15 minutes and writes only friend.json: its own queue, so it never waits behind (or replaces
+  # a queued) daily / watch run; daily and watch still queue behind each other
+  group: ${{ inputs.mode == 'friend' && 'paper-friend' || 'paper' }}
+  cancel-in-progress: false     # queue a second run instead of overlapping or killing the first
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15           # daily: ~1 minute; watch (126-coin scanner, 1000 candles each): ~6-8 minutes; friend: ~2 minutes
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main                # the tip at run time: a queued run must see the state the previous run committed
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install requirements
+        continue-on-error: true    # without Pillow paper.py still runs and sends the BUY as a text push
+        run: pip install -r requirements.txt
+
+      - name: Demo push
+        id: demo
+        if: ${{ inputs.demo }}
+        continue-on-error: true    # the last step fails the job
+        run: python3 -u paper.py --demo
+
+      - name: English example push
+        id: demo_en
+        if: ${{ inputs.demo_en }}
+        continue-on-error: true    # the last step fails the job
+        run: python3 -u paper.py --demo-en
+
+      - name: Weekly report demo
+        id: weekly_demo
+        if: ${{ inputs.weekly_demo }}
+        continue-on-error: true    # the last step fails the job
+        run: python3 -u paper.py --weekly-demo
+
+      - name: Watch (intraday alerts)
+        id: watch
+        if: ${{ inputs.mode == 'watch' && !inputs.demo && !inputs.demo_en && !inputs.weekly_demo }}
+        continue-on-error: true    # the last step fails the job
+        run: python3 -u paper.py --watch
+
+      - name: Friend's setup (15m)
+        id: friend
+        if: ${{ inputs.mode == 'friend' && !inputs.demo && !inputs.demo_en && !inputs.weekly_demo }}
+        continue-on-error: true    # the last step fails the job
+        run: python3 -u paper.py --friend
+
+      - name: Commit friend.json
+        if: ${{ always() && steps.friend.outcome == 'success' }}
+        run: |
+          git add friend.json
+          if git diff --cached --quiet; then echo "friend.json unchanged: nothing to commit"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "paper: friend $(date -u +%Y-%m-%dT%H:%MZ)"
+          # the hourly / daily run may push in between: pull --rebase and try again (only this run writes friend.json)
+          for i in 1 2 3 4 5; do
+            if git pull --rebase origin main && git push origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error title=friend.json not pushed::5 attempts failed"
+          exit 1
+
+      - name: Paper run
+        id: paper
+        if: ${{ inputs.mode != 'watch' && inputs.mode != 'friend' && !inputs.demo && !inputs.demo_en && !inputs.weekly_demo }}
+        continue-on-error: true    # the watchdog must still run; the last step fails the job
+        run: python3 -u paper.py
+
+      - name: Watchdog
+        if: ${{ always() && github.event_name == 'schedule' }}
+        run: python3 -u paper.py --watchdog "${{ steps.paper.outcome }}"
+
+      - name: Commit sent watch alerts and setups
+        if: ${{ always() && steps.watch.outcome == 'success' }}
+        run: |
+          git add paper/alerts.json
+          if [ -f setups.json ]; then git add setups.json; fi
+          if git diff --cached --quiet; then
+            echo "alerts.json and setups.json unchanged: nothing to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "paper: watch alerts $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Publish the web app (GitHub Pages)
+        # site/data.json is written by the daily run (when it processed a day) and by every watch run;
+        # it is built from a whitelist in paper.py and never contains .env values or the ntfy topic.
+        if: ${{ always() && (steps.paper.outcome == 'success' || steps.watch.outcome == 'success') }}
+        env:
+          PAGES_TOKEN: ${{ secrets.PAGES_TOKEN }}
+        run: |
+          if [ -z "$PAGES_TOKEN" ]; then echo "PAGES_TOKEN not set: not publishing"; exit 0; fi
+          if [ ! -f site/data.json ]; then echo "no site/data.json from this run: nothing to publish"; exit 0; fi
+          git clone --quiet --depth 1 "https://x-access-token:${PAGES_TOKEN}@github.com/alex198514/meller-bot.git" "$RUNNER_TEMP/pages"
+          cp -R site/. "$RUNNER_TEMP/pages/"
+          cd "$RUNNER_TEMP/pages"
+          git add -A
+          if git diff --cached --quiet; then echo "site unchanged: nothing to publish"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit --quiet -m "site: update $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push --quiet origin HEAD:main
+          echo "published to https://alex198514.github.io/meller-bot/"
+
+      - name: Commit state and journal
+        if: ${{ always() && inputs.mode != 'watch' && inputs.mode != 'friend' && !inputs.demo && !inputs.demo_en && !inputs.weekly_demo }}
+        run: |
+          # a crashed run did not save its state: its journal rows would be appended again by the next run
+          if [ "${{ steps.paper.outcome }}" != "success" ]; then git checkout -- paper/journal.csv; fi
+          git add paper/state.json paper/journal.csv
+          if git diff --cached --quiet; then
+            echo "state and journal unchanged: nothing to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "paper: daily run $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Fail if paper.py failed
+        if: ${{ always() && (steps.paper.outcome == 'failure' || steps.demo.outcome == 'failure' || steps.demo_en.outcome == 'failure' || steps.watch.outcome == 'failure' || steps.friend.outcome == 'failure' || steps.weekly_demo.outcome == 'failure') }}
+        run: |
+          echo "::error title=paper.py failed::paper.py exited with an error, see the paper step above"
+          exit 1
