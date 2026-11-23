@@ -6,165 +6,165 @@
   "slippage": 0.0005,
   "symbols": {
     "BTCUSDT": {
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "position": null,
-      "last_close": 60215.77,
+      "last_close": 61271.08,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 81196.01,
-        "atr": 3367.500769230769
+        "atr": 3383.768461538461
       },
       "position_b": null
     },
     "ETHUSDT": {
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "position": null,
-      "last_close": 1685.63,
+      "last_close": 1724.33,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 2450.0,
-        "atr": 123.27785714285717
+        "atr": 116.00428571428574
       },
       "position_b": null
     },
     "SOLUSDT": {
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "position": null,
-      "last_close": 70.31,
+      "last_close": 70.73,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 98.14,
-        "atr": 4.563076923076924
+        "atr": 4.386153846153847
       },
       "position_b": null
     },
     "BNBUSDT": {
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "position": null,
-      "last_close": 548.61,
+      "last_close": 559.59,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 723.42,
-        "atr": 29.726363636363637
+        "atr": 29.734545454545458
       },
       "position_b": null
     },
     "XRPUSDT": {
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "position": null,
-      "last_close": 0.9321,
+      "last_close": 0.929,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 1.3414,
-        "atr": 0.06284285714285716
+        "atr": 0.056841666666666686
       },
       "position_b": null
     },
     "ADAUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.1444,
+      "last_processed": "2026-11-22",
+      "last_close": 0.1448,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.2015,
-        "atr": 0.009815384615384613
+        "atr": 0.00952307692307692
       },
       "position_b": null
     },
     "DOGEUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0553,
+      "last_processed": "2026-11-22",
+      "last_close": 0.05537,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.07834,
-        "atr": 0.003737500000000001
+        "atr": 0.003436923076923078
       },
       "position_b": null
     },
     "LINKUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 8.612,
+      "last_processed": "2026-11-22",
+      "last_close": 8.823,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 11.796,
-        "atr": 0.5855384615384616
+        "atr": 0.5631538461538463
       },
       "position_b": null
     },
     "LTCUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 39.81,
+      "last_processed": "2026-11-22",
+      "last_close": 40.21,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 57.04,
-        "atr": 2.566153846153845
+        "atr": 2.5233333333333317
       },
       "position_b": null
     },
     "AVAXUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 6.584,
+      "last_processed": "2026-11-22",
+      "last_close": 6.69,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 9.16,
-        "atr": 0.6006363636363635
+        "atr": 0.5206999999999999
       },
       "position_b": null
     },
     "DOTUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.655,
+      "last_processed": "2026-11-22",
+      "last_close": 0.662,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.996,
-        "atr": 0.047750000000000015
+        "atr": 0.04458333333333334
       },
       "position_b": null
     },
     "TRXUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.3054,
+      "last_processed": "2026-11-22",
+      "last_close": 0.3057,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.3242,
-        "atr": 0.004781818181818175
+        "atr": 0.0048454545454545365
       },
       "position_b": null
     },
     "ATOMUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 1.172,
+      "last_processed": "2026-11-22",
+      "last_close": 1.175,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 1.536,
-        "atr": 0.08314285714285714
+        "atr": 0.07971428571428572
       },
       "position_b": null
     },
     "XLMUSDT": {
       "since": "2026-11-04",
       "position": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.1292,
+      "last_processed": "2026-11-22",
+      "last_close": 0.1278,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1711,
-        "atr": 0.00902857142857143
+        "atr": 0.009038461538461539
       },
       "position_b": null
     },
@@ -172,736 +172,736 @@
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 3.63e-06,
+      "last_processed": "2026-11-22",
+      "last_close": 3.61e-06,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 4.86e-06,
-        "atr": 2.1153846153846144e-07
+        "atr": 2.023076923076922e-07
       }
     },
     "AAVEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 97.65,
+      "last_processed": "2026-11-22",
+      "last_close": 98.06,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 137.03,
-        "atr": 9.559230769230767
+        "atr": 9.287692307692307
       }
     },
     "LDOUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.2338,
+      "last_processed": "2026-11-22",
+      "last_close": 0.2379,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.3547,
-        "atr": 0.020341666666666657
+        "atr": 0.019333333333333324
       }
     },
     "UNIUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 4.745,
+      "last_processed": "2026-11-22",
+      "last_close": 4.687,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 7.82,
-        "atr": 0.48425000000000024
+        "atr": 0.4719090909090911
       }
     },
     "ZECUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 779.96,
+      "last_processed": "2026-11-22",
+      "last_close": 798.63,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 1388.0,
-        "atr": 109.88499999999999
+        "atr": 109.8776923076923
       }
     },
     "BCHUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 199.7,
+      "last_processed": "2026-11-22",
+      "last_close": 199.6,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 290.6,
-        "atr": 13.335714285714289
+        "atr": 12.225000000000003
       }
     },
     "APTUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.371,
+      "last_processed": "2026-11-22",
+      "last_close": 0.3805,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.6604,
-        "atr": 0.03739230769230769
+        "atr": 0.03536153846153846
       }
     },
     "OPUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0705,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0709,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1167,
-        "atr": 0.0063
+        "atr": 0.005784615384615385
       }
     },
     "ACHUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.00359,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00357,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.00483,
-        "atr": 0.0002130769230769231
+        "atr": 0.0002007692307692308
       }
     },
     "ANKRUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "last_close": 0.003,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.00407,
-        "atr": 0.00022357142857142864
+        "atr": 0.00021428571428571436
       }
     },
     "APEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0719,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0727,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1181,
-        "atr": 0.006283333333333335
+        "atr": 0.005925000000000003
       }
     },
     "API3USDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.1663,
+      "last_processed": "2026-11-22",
+      "last_close": 0.1662,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.2483,
-        "atr": 0.013258333333333332
+        "atr": 0.012818181818181817
       }
     },
     "ARUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 2.266,
+      "last_processed": "2026-11-22",
+      "last_close": 2.304,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 3.359,
-        "atr": 0.24124999999999996
+        "atr": 0.22176923076923075
       }
     },
     "AUCTIONUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 2.454,
+      "last_processed": "2026-11-22",
+      "last_close": 2.471,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 3.321,
-        "atr": 0.1386666666666667
+        "day": "2026-11-23",
+        "breakout_above": 3.268,
+        "atr": 0.12858333333333336
       }
     },
     "BELUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0809,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0807,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1014,
-        "atr": 0.005030769230769232
+        "atr": 0.004900000000000002
       }
     },
     "BICOUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.01004,
+      "last_processed": "2026-11-22",
+      "last_close": 0.01,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 0.01583,
-        "atr": 0.0007792307692307694
+        "day": "2026-11-23",
+        "breakout_above": 0.01546,
+        "atr": 0.0007341666666666668
       }
     },
     "CAKEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 1.481,
+      "last_processed": "2026-11-22",
+      "last_close": 1.525,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 2.045,
-        "atr": 0.09928571428571428
+        "atr": 0.09907142857142856
       }
     },
     "CFXUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.03048,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0309,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.04809,
-        "atr": 0.002299166666666667
+        "atr": 0.0021276923076923087
       }
     },
     "CHZUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.00895,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00885,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.01226,
-        "atr": 0.000581818181818182
+        "atr": 0.0005108333333333336
       }
     },
     "CKBUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.000793,
+      "last_processed": "2026-11-22",
+      "last_close": 0.000783,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 0.001237,
-        "atr": 6.423076923076922e-05
+        "day": "2026-11-23",
+        "breakout_above": 0.001206,
+        "atr": 5.941666666666666e-05
       }
     },
     "COMPUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 17.09,
+      "last_processed": "2026-11-22",
+      "last_close": 17.21,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 20.79,
-        "atr": 0.9400000000000001
+        "atr": 0.9157142857142857
       }
     },
     "DASHUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 34.66,
+      "last_processed": "2026-11-22",
+      "last_close": 35.37,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 50.0,
-        "atr": 3.74
+        "atr": 3.3200000000000007
       }
     },
     "DODOUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.03962,
+      "last_processed": "2026-11-22",
+      "last_close": 0.04005,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.04366,
-        "atr": 0.004124285714285714
+        "atr": 0.00448
       }
     },
     "DUSKUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0578,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0599,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 0.0872,
-        "atr": 0.004385714285714285
+        "day": "2026-11-23",
+        "breakout_above": 0.0808,
+        "atr": 0.004221428571428571
       }
     },
     "EGLDUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 2.291,
+      "last_processed": "2026-11-22",
+      "last_close": 2.307,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 3.674,
-        "atr": 0.17850000000000008
+        "atr": 0.1603846153846154
       }
     },
     "ENJUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.01775,
+      "last_processed": "2026-11-22",
+      "last_close": 0.01788,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.02513,
-        "atr": 0.001523636363636364
+        "atr": 0.0014490909090909094
       }
     },
     "ENSUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 3.58,
+      "last_processed": "2026-11-22",
+      "last_close": 3.66,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 5.2,
-        "atr": 0.25384615384615383
+        "atr": 0.24000000000000005
       }
     },
     "FETUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.109,
+      "last_processed": "2026-11-22",
+      "last_close": 0.108,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1667,
-        "atr": 0.009500000000000005
+        "atr": 0.009092307692307695
       }
     },
     "FILUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.5185,
+      "last_processed": "2026-11-22",
+      "last_close": 0.532,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.9032,
-        "atr": 0.04572307692307691
+        "atr": 0.04313846153846153
       }
     },
     "GMTUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.00516,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00507,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 0.00658,
-        "atr": 0.00033538461538461527
+        "day": "2026-11-23",
+        "breakout_above": 0.0065,
+        "atr": 0.0003174999999999999
       }
     },
     "GMXUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 7.27,
+      "last_processed": "2026-11-22",
+      "last_close": 7.42,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 9.33,
-        "atr": 0.46428571428571447
+        "atr": 0.44785714285714295
       }
     },
     "GRTUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.01577,
+      "last_processed": "2026-11-22",
+      "last_close": 0.01603,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.02108,
-        "atr": 0.0012614285714285718
+        "atr": 0.0012250000000000004
       }
     },
     "HBARUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.05155,
+      "last_processed": "2026-11-22",
+      "last_close": 0.05161,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.07408,
-        "atr": 0.0037085714285714287
+        "atr": 0.0036257142857142864
       }
     },
     "ICPUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 1.92,
+      "last_processed": "2026-11-22",
+      "last_close": 1.965,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 2.67,
-        "atr": 0.20785714285714288
+        "atr": 0.20457142857142854
       }
     },
     "ILVUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 2.22,
+      "last_processed": "2026-11-22",
+      "last_close": 2.2,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 3.2,
-        "atr": 0.1476923076923078
+        "atr": 0.13615384615384624
       }
     },
     "IMXUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0877,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0872,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1479,
-        "atr": 0.00819
+        "atr": 0.00742727272727273
       }
     },
     "INJUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 5.987,
+      "last_processed": "2026-11-22",
+      "last_close": 6.235,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 8.584,
-        "atr": 0.7254999999999999
+        "atr": 0.73425
       }
     },
     "IOSTUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.000554,
+      "last_processed": "2026-11-22",
+      "last_close": 0.000558,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 0.000729,
-        "atr": 3.646153846153848e-05
+        "day": "2026-11-23",
+        "breakout_above": 0.000718,
+        "atr": 3.484615384615386e-05
       }
     },
     "JASMYUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0031,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00308,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.00399,
-        "atr": 0.0002335714285714286
+        "atr": 0.00022642857142857146
       }
     },
     "JOEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0194,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0195,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.0294,
-        "atr": 0.0015454545454545458
+        "atr": 0.001409090909090909
       }
     },
     "LPTUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 1.012,
+      "last_processed": "2026-11-22",
+      "last_close": 1.011,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 1.45,
-        "atr": 0.06530769230769233
+        "atr": 0.061615384615384634
       }
     },
     "LSKUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.1404,
+      "last_processed": "2026-11-22",
+      "last_close": 0.1409,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.2287,
-        "atr": 0.013069230769230777
+        "atr": 0.010991666666666672
       }
     },
     "MANAUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0553,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0561,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.0763,
-        "atr": 0.003374999999999999
+        "atr": 0.003107692307692307
       }
     },
     "MASKUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.27,
+      "last_processed": "2026-11-22",
+      "last_close": 0.271,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.403,
-        "atr": 0.01907692307692308
+        "atr": 0.018166666666666668
       }
     },
     "NEOUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 1.514,
+      "last_processed": "2026-11-22",
+      "last_close": 1.54,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 2.032,
-        "atr": 0.09653846153846155
+        "atr": 0.09223076923076924
       }
     },
     "ONGUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0507,
+      "last_processed": "2026-11-22",
+      "last_close": 0.04969,
       "watch": {
-        "day": "2026-11-22",
-        "breakout_above": 0.07184,
-        "atr": 0.003919999999999999
+        "day": "2026-11-23",
+        "breakout_above": 0.07164,
+        "atr": 0.0035941666666666643
       }
     },
     "PEOPLEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.00471,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00474,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.00688,
-        "atr": 0.0003283333333333334
+        "atr": 0.00029076923076923084
       }
     },
     "POLYXUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.02493,
+      "last_processed": "2026-11-22",
+      "last_close": 0.02462,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.03363,
-        "atr": 0.001583076923076923
+        "atr": 0.001473076923076923
       }
     },
     "ROSEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.00427,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00435,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.00623,
-        "atr": 0.00034923076923076916
+        "atr": 0.0003269230769230768
       }
     },
     "RSRUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.001255,
+      "last_processed": "2026-11-22",
+      "last_close": 0.001264,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.001879,
-        "atr": 0.00013376923076923076
+        "atr": 0.00011372727272727274
       }
     },
     "RUNEUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.491,
+      "last_processed": "2026-11-22",
+      "last_close": 0.506,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.673,
-        "atr": 0.03635714285714285
+        "atr": 0.03642857142857143
       }
     },
     "SANDUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.03328,
+      "last_processed": "2026-11-22",
+      "last_close": 0.03352,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.04761,
-        "atr": 0.0024708333333333344
+        "atr": 0.0023400000000000005
       }
     },
     "SPELLUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
+      "last_processed": "2026-11-22",
       "last_close": 6.06e-05,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 7.9e-05,
-        "atr": 3.835714285714287e-06
+        "atr": 3.6142857142857156e-06
       }
     },
     "STXUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.2517,
+      "last_processed": "2026-11-22",
+      "last_close": 0.2573,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.3667,
-        "atr": 0.023621428571428578
+        "atr": 0.02302142857142858
       }
     },
     "TRBUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 12.24,
+      "last_processed": "2026-11-22",
+      "last_close": 12.17,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 16.93,
-        "atr": 0.8046153846153845
+        "atr": 0.7553846153846153
       }
     },
     "UMAUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.239,
+      "last_processed": "2026-11-22",
+      "last_close": 0.238,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.356,
-        "atr": 0.016727272727272736
+        "atr": 0.01610000000000001
       }
     },
     "VETUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.004606,
+      "last_processed": "2026-11-22",
+      "last_close": 0.004623,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.005995,
-        "atr": 0.00032530769230769234
+        "atr": 0.00031115384615384615
       }
     },
     "WOOUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.00863,
+      "last_processed": "2026-11-22",
+      "last_close": 0.00872,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.01376,
-        "atr": 0.0005592307692307691
+        "atr": 0.0005199999999999997
       }
     },
     "YGGUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.01871,
+      "last_processed": "2026-11-22",
+      "last_close": 0.01977,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.0245,
-        "atr": 0.0015346153846153851
+        "atr": 0.0012300000000000004
       }
     },
     "ZRXUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0753,
+      "last_processed": "2026-11-22",
+      "last_close": 0.076,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.1008,
-        "atr": 0.004661538461538459
+        "atr": 0.004323076923076921
       }
     },
     "1INCHUSDT": {
       "since": "2026-11-09",
       "position": null,
       "position_b": null,
-      "last_processed": "2026-11-21",
-      "last_close": 0.0602,
+      "last_processed": "2026-11-22",
+      "last_close": 0.0607,
       "watch": {
-        "day": "2026-11-22",
+        "day": "2026-11-23",
         "breakout_above": 0.0849,
-        "atr": 0.004092307692307694
+        "atr": 0.0036166666666666678
       }
     }
   },
-  "updated_at": "2026-11-22 05:16 UTC",
+  "updated_at": "2026-11-23 05:16 UTC",
   "funding": "real Binance USDT-M funding, added to open positions every run",
   "challenge_archive": [
     {
@@ -959,7 +959,7 @@
     "positions": {},
     "skipped": [],
     "closed": [],
-    "last_day": "2026-11-21",
+    "last_day": "2026-11-22",
     "near_alerted": false,
     "target_pct": 5.0,
     "max_loss_pct": 10.0,
@@ -991,7 +991,7 @@
     "positions": {},
     "skipped": [],
     "closed": [],
-    "last_day": "2026-11-21",
+    "last_day": "2026-11-22",
     "near_alerted": false,
     "target_pct": 5.0,
     "max_loss_pct": 10.0,
@@ -1009,7 +1009,7 @@
   "followed_b": {},
   "funding_pending": [],
   "summary_push": {
-    "day": "2026-11-21",
+    "day": "2026-11-22",
     "error": null
   },
   "equity_log": {
@@ -1068,6 +1068,11 @@
         1,
         1,
         10000.0
+      ],
+      "2026-11-22": [
+        1,
+        1,
+        10000.0
       ]
     },
     "B": {
@@ -1122,6 +1127,11 @@
         10000.0
       ],
       "2026-11-21": [
+        1,
+        1,
+        10000.0
+      ],
+      "2026-11-22": [
         1,
         1,
         10000.0
