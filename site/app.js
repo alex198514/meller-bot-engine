@@ -4,7 +4,8 @@
 const I18N = {
   ru: {
     tab_signals: "Сигналы", back: "Назад",
-    test_mode: "Наблюдение, не рекомендация: ни один тип сигнала пока не прошёл 12-месячный бэктест, пушей нет",
+    cv_title: "Кривая результата, R", cv_all: "все", cv_dd: "макс. просадка", cv_1m: "на $1M оборота",
+    test_mode: "Наблюдение, не рекомендация: ни один тип сигнала пока не прошёл 12-месячный бэктест, тренировочные пуши только по волнам и сетапу друга",
     obs_tag: "наблюдение, не рекомендация", sg_type_since: "{type} · с {d}",
     mf_bear: "Рынок медвежий: лонги = против рынка", mf_bull: "Рынок бычий: шорты = против рынка",
     mf_side: "Боковик: оба направления по рынку", mf_none: "Нет данных о рынке",
@@ -44,7 +45,7 @@ const I18N = {
       "дневная свеча (закрытие в 00:00 UTC) закрывается выше этого уровня. Полная полоса — цена у уровня, " +
       "пустая — 20% и дальше.",
     show_all: "Показать все {n}", show_top: "Показать только топ-10",
-    live: "онлайн", polling: "обновление раз в минуту", data_at: "данные {t}", to_breakout: "до пробоя", above: "выше уровня",
+    live: "онлайн", polling: "цены раз в минуту", data_at: "данные {t}", to_breakout: "до пробоя", above: "выше уровня",
     bull: "бычий", bear: "медвежий", side: "боковик", nodata: "нет данных",
     chip_wait: "ЖДЁМ ПРОБОЯ", chip_long: "LONG ОТКРЫТ",
     entry: "Вход", stop: "Стоп", now: "Сейчас", take: "Тейк", trailing: "трейлинг",
@@ -96,7 +97,8 @@ const I18N = {
   },
   en: {
     tab_signals: "Signals", back: "Back",
-    test_mode: "Observation, not a recommendation: no signal type has passed the 12-month backtest yet, no pushes",
+    cv_title: "Equity curve, R", cv_all: "all", cv_dd: "max drawdown", cv_1m: "per $1M turnover",
+    test_mode: "Observation, not a recommendation: no signal type has passed the 12-month backtest yet, training pushes only for waves and the friend setup",
     obs_tag: "observation, not a recommendation", sg_type_since: "{type} · since {d}",
     mf_bear: "Bear market: longs = against the market", mf_bull: "Bull market: shorts = against the market",
     mf_side: "Sideways: both directions are with the market", mf_none: "No market data",
@@ -136,7 +138,7 @@ const I18N = {
       "candle (close at 00:00 UTC) closes above that level. A full bar means the price is at the level, an " +
       "empty one 20% or more away.",
     show_all: "Show all {n}", show_top: "Show top 10 only",
-    live: "live", polling: "updating every minute", data_at: "data {t}", to_breakout: "to breakout", above: "above level",
+    live: "live", polling: "prices every minute", data_at: "data {t}", to_breakout: "to breakout", above: "above level",
     bull: "bull", bear: "bear", side: "sideways", nodata: "no data",
     chip_wait: "WAITING", chip_long: "LONG OPEN",
     entry: "Entry", stop: "Stop", now: "Now", take: "Take", trailing: "trailing",
@@ -1187,6 +1189,25 @@ const sgOpen = (x) => x.status === "open" || x.status === "pending";      // pen
 const sgMatch = (f, x) => f === "all" || (f === "open" ? sgOpen(x) : f === "closed" ? !sgOpen(x) :
   f === "long" || f === "short" ? x.side === f : x.tf === f);
 
+/** Equity curve card (setups.curve from paper.py): cumulative R per day for all / breakout / wave. */
+function curveCard(cv) {
+  if (!cv || !cv.days || cv.days.length < 2) return "";
+  const W = 340, H = 150, P = 8, d = cv.days, keys = [["all", "var(--text)"], ["breakout", "var(--red)"], ["wave", "var(--green)"]];
+  const vals = d.flatMap((x) => keys.map(([k]) => x[k])).concat([0]);
+  const lo = Math.min(...vals), hi = Math.max(...vals), sp = hi - lo || 1;
+  const X = (i) => P + (i * (W - 2 * P)) / (d.length - 1), Y = (v) => P + ((hi - v) * (H - 2 * P)) / sp;
+  const path = (k) => d.map((x, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(x[k]).toFixed(1)}`).join("");
+  const lines = keys.map(([k, c]) => `<path d="${path(k)}" fill="none" stroke="${c}" stroke-width="${k === "all" ? 2.5 : 1.6}"/>`).join("");
+  const last = d[d.length - 1], lab = (k) => (k === "all" ? t("cv_all") : t("sg_" + k));
+  const legend = keys.map(([k, c]) => `<span style="color:${c}">● ${esc(lab(k))} ${N(sgn(last[k], 1) + "R")}</span>`).join(" &nbsp; ");
+  const per = cv.usd_per_1m == null ? "—" : (cv.usd_per_1m >= 0 ? "+" : "−") + "$" + Math.abs(cv.usd_per_1m).toFixed(0);
+  return `<div class="card cvcard"><div class="pk">${esc(t("cv_title"))}</div>
+    <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(t("cv_title"))}">
+      <line x1="${P}" x2="${W - P}" y1="${Y(0).toFixed(1)}" y2="${Y(0).toFixed(1)}" stroke="var(--line-2)" stroke-dasharray="4 4"/>${lines}</svg>
+    <div class="cvleg">${legend}</div>
+    <div class="cvleg">${esc(t("cv_dd"))}: ${N(sgn(cv.max_dd_r, 1) + "R")} &nbsp; ${esc(t("cv_1m"))}: ${N(per)}</div></div>`;
+}
+
 function renderSignals() {
   $("setups-title").textContent = t("setups_title");
   $("setups-explain").textContent = t("setups_explain");
@@ -1232,7 +1253,7 @@ function renderSignals() {
     const m = su.filter.market;
     html = `<div class="mfline ${m === "bear" ? "bear" : m === "bull" ? "bull" : ""}">${esc(t(m === "bear" || m === "bull" || m === "side" ? "mf_" + m : "mf_none"))}</div>` + html;
   }
-  $("sg-list").innerHTML = `<p class="testmode">${esc(t("test_mode"))}</p>` + html;
+  $("sg-list").innerHTML = `<p class="testmode">${esc(t("test_mode"))}</p>` + curveCard(su.curve) + html;
 }
 
 const activeSetup = (sym) => (S.setupView && S.setupView.symbol === sym ? setupById(S.setupView.id) || S.setupView : null);
