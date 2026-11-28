@@ -2242,6 +2242,7 @@ SETUP_SCAN_BARS = 1000            # candles fetched per symbol and timeframe (Bi
 WAVE_TITLE = "🌊 Волна 3 (эксперимент)"   # second signal type (wave_test.py rules), one target, same 24 h exit
 SETUP_NOTE = "Новая стратегия, статистика копится."
 SETUP_PUSH_TFS = ("1h", "4h")     # pushed timeframes
+SETUP_PUSH_OFF_TYPES = ("breakout",)  # 28.11.2026, confirmed by the user: no pushes for breakouts (live -127R); still recorded
 SETUP_PUSH = True                 # 17.11.2026, confirmed by the user (CLAUDE.md): training pushes for all three types
 SETUP_PUSH_RISK_USD = 10.0        # the push's size is for this risk (training on small sums); records keep SETUP_RISK_USD
 TRAINING_TITLE = "🧪 Тренировка"
@@ -2917,13 +2918,35 @@ def pick_setup_pushes(book, found, now_ms):
     within SETUP_PUSH_GAP_MS (12 hours), at most SETUP_PUSH_MAX per run, the highest relative volume first."""
     recent = {r["symbol"] for r in book["setups"] if now_ms - r.get("pushed_ms", 0) < SETUP_PUSH_GAP_MS}
     ok = sorted([(r, b) for r, b in found if (r["tf"] in SETUP_PUSH_TFS or setup_type(r) == "friend")
-                 and r["symbol"] not in recent], key=lambda x: -x[0].get("vol_x", 0))
+                 and setup_type(r) not in SETUP_PUSH_OFF_TYPES and r["symbol"] not in recent], key=lambda x: -x[0].get("vol_x", 0))
     picked, seen = [], set()
     for r, b in ok:                                 # one push per symbol per run as well
         if r["symbol"] not in seen:
             picked.append((r, b))
             seen.add(r["symbol"])
     return picked[:SETUP_PUSH_MAX], max(0, len(picked) - SETUP_PUSH_MAX)
+
+
+def setup_curve(live):
+    """Equity of the closed live setups (28.11.2026): one point a day (by exit day, UTC) with the cumulative R of all,
+    breakout and wave; the max drawdown in R (from a peak of the "all" curve, trade by trade) and the $ result per
+    $1M turnover (risk SETUP_RISK_USD a trade, turnover = 2 x notional: entry and exit)."""
+    done = sorted((r for r in live if r["status"] not in ("open", "pending") and r.get("r") is not None),
+                  key=lambda r: r.get("exit_time") or r["time"])
+    cum, days, peak, dd, cur, turnover = {"all": 0.0, "breakout": 0.0, "wave": 0.0}, {}, 0.0, 0.0, 0.0, 0.0
+    for r in done:
+        t = setup_type(r)
+        cum["all"] += r["r"]
+        if t in cum:
+            cum[t] += r["r"]
+        cur += r["r"]
+        peak = max(peak, cur)
+        dd = min(dd, cur - peak)
+        turnover += 2 * (r.get("notional") or 0)
+        days[(r.get("exit_time") or r["time"])[:10]] = {k: round(v, 2) for k, v in cum.items()}
+    per_m = round(cum["all"] * SETUP_RISK_USD / turnover * 1e6, 1) if turnover else None
+    return {"days": [dict(d=d, **v) for d, v in sorted(days.items())], "max_dd_r": round(dd, 2),
+            "turnover_usd": round(turnover), "usd_per_1m": per_m}
 
 
 def setups_export(book, now_ms=None):
@@ -2941,6 +2964,7 @@ def setups_export(book, now_ms=None):
                                   tz=timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
     return {"open": [r for r in rows if r["status"] in ("open", "pending")], "closed": closed[::-1][:300],
             "stats": setup_stats(live), "stats_friend": setup_stats(friend), "stats_7d": setup_stats([r for r in live if r["time"] >= week]),
+            "curve": setup_curve(live),
             "live_since": SETUP_LIVE_SINCE, "dry_run": SETUP_DRY_RUN, "filter": {"market": market_state(now_ms)},
             "rules": {"tp_r": list(SETUP_TP_R), "fee_rt": SETUP_FEE_RT, "exit_hours": SETUP_EXIT_MS // 3_600_000,
                       "risk_usd": SETUP_RISK_USD, "push_risk_usd": SETUP_PUSH_RISK_USD}}
